@@ -1,0 +1,238 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Resume Builder with AI-Style Coaching (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Build a structured resume editor UI with required sections and repeatable/reorderable items, including validation and save flow.",
+      "acceptanceCriteria": [
+        "Users can create a new resume, edit fields across the required sections, and save changes.",
+        "Work Experience and Education support multiple entries and reordering.",
+        "UI validates basic required fields (e.g., name) and prevents saving empty required fields."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ResumeEditorPage.tsx",
+          "operation": "create",
+          "description": "Create the main resume editor page that supports editing Basics/Contact, Summary, Work Experience, Education, and Skills; implement add/edit/reorder for repeating items and local validation before saving."
+        },
+        {
+          "path": "frontend/src/components/resume/SectionBasicsContact.tsx",
+          "operation": "create",
+          "description": "Add a Basics/Contact editor component (name, email, phone, location, links) used by the ResumeEditorPage; ensure required fields (e.g., name) are validated before save."
+        },
+        {
+          "path": "frontend/src/components/resume/SectionSummary.tsx",
+          "operation": "create",
+          "description": "Add a Summary editor component with guidance (length/clarity hints) and validation integration for ResumeEditorPage."
+        },
+        {
+          "path": "frontend/src/components/resume/SectionExperience.tsx",
+          "operation": "create",
+          "description": "Add a Work Experience editor component that supports multiple entries and reordering; used by ResumeEditorPage."
+        },
+        {
+          "path": "frontend/src/components/resume/SectionEducation.tsx",
+          "operation": "create",
+          "description": "Add an Education editor component that supports multiple entries and reordering; used by ResumeEditorPage."
+        },
+        {
+          "path": "frontend/src/components/resume/SectionSkills.tsx",
+          "operation": "create",
+          "description": "Add a Skills editor component (list editing + basic checks like empty/too short) used by ResumeEditorPage."
+        },
+        {
+          "path": "frontend/src/components/resume/serializeResumeSections.ts",
+          "operation": "create",
+          "description": "Implement deterministic serialization/deserialization between the editor’s structured model (including repeating items) and the backend Resume.sections representation."
+        },
+        {
+          "path": "frontend/src/hooks/useResumes.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for resume CRUD (list, detail, create, update, delete) and caching/invalidation to support saving from the editor."
+        },
+        {
+          "path": "frontend/src/components/common/FormErrorSummary.tsx",
+          "operation": "create",
+          "description": "Create a small reusable component to display validation errors consistently across the editor sections."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add a live, print-friendly resume preview with browser print/PDF export.",
+      "acceptanceCriteria": [
+        "Preview updates immediately when the user edits the resume.",
+        "Preview layout is print-friendly (reasonable margins, no app chrome in print where practical).",
+        "An \"Export\" action opens the browser print dialog for saving as PDF."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ResumePreviewPage.tsx",
+          "operation": "create",
+          "description": "Create a preview page that renders the resume in a clean editorial layout; ensure it can render from either saved backend data or the editor’s in-memory state to enable live updates."
+        },
+        {
+          "path": "frontend/src/components/resume/ResumePreview.tsx",
+          "operation": "create",
+          "description": "Create a print-friendly preview renderer component with strong typographic hierarchy and section formatting; used by ResumePreviewPage and optionally embedded alongside the editor."
+        },
+        {
+          "path": "frontend/src/components/resume/ExportButton.tsx",
+          "operation": "create",
+          "description": "Add an Export action that triggers the browser print dialog (window.print) from the preview context."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add print styles (e.g., @media print) to hide app chrome/navigation and set reasonable margins/typography for PDF export."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Provide a coaching UI to run deterministic coaching for a resume and display grouped suggestions.",
+      "acceptanceCriteria": [
+        "User can run coaching on a selected resume and see a list of suggestions grouped by section/category.",
+        "Suggestions are generated from deterministic rules (e.g., detect missing metrics in experience bullets, overly long summary, missing dates, inconsistent capitalization/punctuation, weak verbs, skill list too short/too long).",
+        "Coaching results are reproducible for the same input and do not call any third-party LLM or API."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CoachingPage.tsx",
+          "operation": "create",
+          "description": "Create a Coaching page that triggers a coaching run for the selected resume and renders results grouped by section and category; do not call any third-party services."
+        },
+        {
+          "path": "frontend/src/components/coaching/SuggestionList.tsx",
+          "operation": "create",
+          "description": "Create a reusable suggestions list UI that groups suggestions by section/category and presents actionable messages."
+        },
+        {
+          "path": "frontend/src/hooks/useCoaching.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to run coaching and fetch coaching results for a resume; handle loading/error states consistently."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement the application shell, navigation, and resume list workflows using React Query and consistent loading/error states.",
+      "acceptanceCriteria": [
+        "Resume List shows all user resumes and allows opening, duplicating, and deleting a resume.",
+        "All data operations use React Query with clear loading indicators and error messages.",
+        "Navigation works without broken routes/pages and preserves selected resume context where appropriate."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the top-level app with routing/navigation for Resume List, Resume Editor, Preview, and Coaching; require login before showing application data. Use the authorization component’s frontend guidance for authentication flow. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/shell/AppShell.tsx",
+          "operation": "create",
+          "description": "Create an application shell with header/nav and an outlet area for pages; integrate consistent loading/error UI patterns."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Implement login/logout UI using Internet Identity and clear React Query cache on logout per the authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Implement first-login profile setup (ask for name) driven by getCallerUserProfile/saveCallerUserProfile; avoid modal flash using the authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for current user profile and role checks needed for gating the app and showing the user’s name; follow the authorization component guidance for loading state correctness. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ResumeListPage.tsx",
+          "operation": "create",
+          "description": "Create the resume list page with actions to create, open, duplicate, and delete resumes; show empty state when none exist; use React Query for all reads/writes and handle loading/errors."
+        },
+        {
+          "path": "frontend/src/components/resume/ResumeListItem.tsx",
+          "operation": "create",
+          "description": "Create a list row/card component with open/duplicate/delete actions and consistent styling/disabled states during mutations."
+        },
+        {
+          "path": "frontend/src/components/common/LoadingState.tsx",
+          "operation": "create",
+          "description": "Create a shared loading state component used across list/editor/preview/coaching views."
+        },
+        {
+          "path": "frontend/src/components/common/ErrorState.tsx",
+          "operation": "create",
+          "description": "Create a shared error state component that can render friendly messages for canister failures (including authorization failures) and offer retry where appropriate."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Define and apply a cohesive professional editorial theme (non-blue/purple primary) consistently across the app.",
+      "acceptanceCriteria": [
+        "Theme is consistently applied across list, editor, preview, and coaching views.",
+        "Primary palette is not blue/purple; overall look is professional and readable.",
+        "Forms and preview have strong typographic hierarchy and accessible contrast."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define global theme tokens (CSS variables) and base typography/spacing for an editorial look; set a non-blue/purple primary color and ensure accessible contrast across components."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions if needed to support the editorial palette/typography and ensure consistent spacing/typography utilities used by pages."
+        },
+        {
+          "path": "frontend/src/components/shell/AppShell.tsx",
+          "operation": "modify",
+          "description": "Apply the theme consistently in the shell (header, nav, page container spacing, typographic hierarchy) so all pages inherit a cohesive look."
+        },
+        {
+          "path": "frontend/src/components/resume/ResumePreview.tsx",
+          "operation": "modify",
+          "description": "Ensure the preview uses professional typographic hierarchy and print-friendly styling aligned with the global theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add and display generated static image assets (logo and empty-state illustration) in the app shell and empty states.",
+      "acceptanceCriteria": [
+        "Generated images are placed in frontend/public/assets/generated and referenced directly by the frontend.",
+        "Logo is shown in the app header/shell.",
+        "Illustration is used in an appropriate empty state (e.g., no resumes yet) without impacting core functionality."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/resume-coach-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at the exact required path: frontend/public/assets/generated/resume-coach-logo.dim_512x512.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/empty-state-illustration.dim_1200x800.png",
+          "operation": "create",
+          "description": "Add the generated empty-state illustration asset at the exact required path: frontend/public/assets/generated/empty-state-illustration.dim_1200x800.png."
+        },
+        {
+          "path": "frontend/src/components/shell/AppShell.tsx",
+          "operation": "modify",
+          "description": "Reference and display the logo from frontend/public/assets/generated/resume-coach-logo.dim_512x512.png in the app header."
+        },
+        {
+          "path": "frontend/src/pages/ResumeListPage.tsx",
+          "operation": "modify",
+          "description": "Use the illustration from frontend/public/assets/generated/empty-state-illustration.dim_1200x800.png in the “no resumes yet” empty state."
+        }
+      ]
+    }
+  ]
+}

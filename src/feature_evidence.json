@@ -1,0 +1,143 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-resume-editor-ui-that-lets-users-build-a-resume-using-structured-sections-at-minimum-basics-contact-summary-work-experience-education-skills-with-add-edit-reorder-capabilities-for-repeating-items-e-g-multiple-jobs",
+      "featureTitle": "Create a resume editor UI that lets users build a resume using structured sections (at minimum: Basics/Contact, Summary, Work Experience, Education, Skills) with add/edit/reorder capabilities for repeating items (e.g., multiple jobs).",
+      "files": [
+        "frontend/src/components/common/FormErrorSummary.tsx",
+        "frontend/src/components/resume/SectionBasicsContact.tsx",
+        "frontend/src/components/resume/SectionEducation.tsx",
+        "frontend/src/components/resume/SectionExperience.tsx",
+        "frontend/src/components/resume/SectionSkills.tsx",
+        "frontend/src/components/resume/SectionSummary.tsx",
+        "frontend/src/components/resume/serializeResumeSections.ts",
+        "frontend/src/hooks/useResumes.ts",
+        "frontend/src/pages/ResumeEditorPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-live-resume-preview-view-that-renders-the-resume-in-a-clean-print-friendly-layout-and-supports-exporting-via-the-browser-print-dialog-user-can-save-as-pdf",
+      "featureTitle": "Add a live resume preview view that renders the resume in a clean, print-friendly layout and supports exporting via the browser print dialog (user can save as PDF).",
+      "files": [
+        "frontend/src/components/resume/ExportButton.tsx",
+        "frontend/src/components/resume/ResumePreview.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/ResumePreviewPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-an-ai-style-coaching-feature-that-analyzes-the-current-resume-content-using-deterministic-heuristics-no-external-ai-services-and-returns-actionable-suggestions-categorized-by-section-e-g-impact-clarity-keywords-formatting-consistency",
+      "featureTitle": "Implement an AI-style coaching feature that analyzes the current resume content using deterministic heuristics (no external AI services) and returns actionable suggestions categorized by section (e.g., impact, clarity, keywords, formatting consistency).",
+      "files": [
+        "frontend/src/components/coaching/SuggestionList.tsx",
+        "frontend/src/hooks/useCoaching.ts",
+        "frontend/src/pages/CoachingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-application-shell-with-navigation-for-resume-list-resume-editor-preview-and-coaching-using-react-query-for-all-canister-reads-writes-and-consistent-loading-error-states",
+      "featureTitle": "Add an application shell with navigation for: Resume List, Resume Editor/Preview, and Coaching, using React Query for all canister reads/writes and consistent loading/error states.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/common/ErrorState.tsx",
+        "frontend/src/components/common/LoadingState.tsx",
+        "frontend/src/components/resume/ResumeListItem.tsx",
+        "frontend/src/components/shell/AppShell.tsx",
+        "frontend/src/hooks/useUserProfile.ts",
+        "frontend/src/pages/ResumeListPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-define-and-apply-a-cohesive-visual-theme-for-the-app-colors-typography-spacing-component-styling-with-a-professional-editorial-look-avoid-blue-purple-as-primary-colors-and-ensure-it-is-used-consistently-across-all-pages",
+      "featureTitle": "Define and apply a cohesive visual theme for the app (colors, typography, spacing, component styling) with a professional editorial look (avoid blue/purple as primary colors) and ensure it is used consistently across all pages.",
+      "files": [
+        "frontend/src/components/resume/ResumePreview.tsx",
+        "frontend/src/components/shell/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-logo-optional-hero-empty-state-illustration-to-the-frontend-and-display-them-in-the-app-shell-landing-empty-states",
+      "featureTitle": "Add generated static image assets (logo + optional hero/empty-state illustration) to the frontend and display them in the app shell/landing/empty states.",
+      "files": [
+        "frontend/src/components/shell/AppShell.tsx",
+        "frontend/src/pages/ResumeListPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

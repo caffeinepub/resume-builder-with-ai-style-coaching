@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a resume builder application with an AI coaching component.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist typographic logo mark, black/charcoal on transparent background (resume-coach-logo.dim_512x512.png)\n- Simple editorial-style illustration of a desk with paper and checklist, warm neutral palette (empty-state-illustration.dim_1200x800.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-resume-editor-ui-that-lets-users-build-a-resume-using-structured-sections-at-minimum-basics-contact-summary-work-experience-education-skills-with-add-edit-reorder-capabilities-for-repeating-items-e-g-multiple-jobs",
+      "title": "Create a resume editor UI that lets users build a resume using structured sections (at minimum: Basics/Contact, Summary, Work Experience, Education, Skills) with add/edit/reorder capabilities for repeating items (e.g., multiple jobs).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-live-resume-preview-view-that-renders-the-resume-in-a-clean-print-friendly-layout-and-supports-exporting-via-the-browser-print-dialog-user-can-save-as-pdf",
+      "title": "Add a live resume preview view that renders the resume in a clean, print-friendly layout and supports exporting via the browser print dialog (user can save as PDF).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-ai-style-coaching-feature-that-analyzes-the-current-resume-content-using-deterministic-heuristics-no-external-ai-services-and-returns-actionable-suggestions-categorized-by-section-e-g-impact-clarity-keywords-formatting-consistency",
+      "title": "Implement an AI-style coaching feature that analyzes the current resume content using deterministic heuristics (no external AI services) and returns actionable suggestions categorized by section (e.g., impact, clarity, keywords, formatting consistency).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-application-shell-with-navigation-for-resume-list-resume-editor-preview-and-coaching-using-react-query-for-all-canister-reads-writes-and-consistent-loading-error-states",
+      "title": "Add an application shell with navigation for: Resume List, Resume Editor/Preview, and Coaching, using React Query for all canister reads/writes and consistent loading/error states.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-cohesive-visual-theme-for-the-app-colors-typography-spacing-component-styling-with-a-professional-editorial-look-avoid-blue-purple-as-primary-colors-and-ensure-it-is-used-consistently-across-all-pages",
+      "title": "Define and apply a cohesive visual theme for the app (colors, typography, spacing, component styling) with a professional editorial look (avoid blue/purple as primary colors) and ensure it is used consistently across all pages.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-logo-optional-hero-empty-state-illustration-to-the-frontend-and-display-them-in-the-app-shell-landing-empty-states",
+      "title": "Add generated static image assets (logo + optional hero/empty-state illustration) to the frontend and display them in the app shell/landing/empty states.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a resume builder and AI coaching app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement backend data models and persistence for resumes, including CRUD operations scoped to the caller’s Principal (so each user only accesses their own resumes).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Persist coaching runs/results per resume so users can view the latest coaching output after refreshing the app (store at least the latest run timestamp and suggestions).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Resume Builder with AI-Style Coaching",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

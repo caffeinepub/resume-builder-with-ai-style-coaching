@@ -1,2 +1,3 @@
-# resume-builder-with-ai-style-coaching
-Exported from Caffeine project: Resume Builder with AI-Style Coaching
+## Resume Builder with AI-Style Coaching
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`
