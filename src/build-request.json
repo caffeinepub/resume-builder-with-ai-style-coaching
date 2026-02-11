@@ -1,170 +1,50 @@
 {
   "kind": "build_request",
-  "title": "Resume Builder with AI-Style Coaching",
-  "priority": "normal",
+  "title": "Add missing Internet Identity sign-in button on unauthenticated screen",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Implement backend data models and persistence for resumes, including CRUD operations scoped to the caller’s Principal (so each user only accesses their own resumes).",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend exposes methods to create, read (list + detail), update, and delete a resume.",
-        "Resumes are stored in canister stable state and survive canister upgrades (add migration.mo only if required by the template/state).",
-        "Access control ensures a caller can only read/write/delete resumes they own (by Principal)."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Create a resume editor UI that lets users build a resume using structured sections (at minimum: Basics/Contact, Summary, Work Experience, Education, Skills) with add/edit/reorder capabilities for repeating items (e.g., multiple jobs).",
+      "id": "REQ-9",
+      "text": "Add a visible primary \"Sign in with Internet Identity\" button to the unauthenticated landing screen in `frontend/src/App.tsx` that triggers `useInternetIdentity().login()` on click, so users can initiate login.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-9"
         ],
         "quotes": [
-          "Create a  resume builder and coaching ai app"
+          "yes add the button"
         ]
       },
       "acceptanceCriteria": [
-        "Users can create a new resume, edit fields across the required sections, and save changes.",
-        "Work Experience and Education support multiple entries and reordering.",
-        "UI validates basic required fields (e.g., name) and prevents saving empty required fields."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Add a live resume preview view that renders the resume in a clean, print-friendly layout and supports exporting via the browser print dialog (user can save as PDF).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Preview updates immediately when the user edits the resume.",
-        "Preview layout is print-friendly (reasonable margins, no app chrome in print where practical).",
-        "An \"Export\" action opens the browser print dialog for saving as PDF."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement an AI-style coaching feature that analyzes the current resume content using deterministic heuristics (no external AI services) and returns actionable suggestions categorized by section (e.g., impact, clarity, keywords, formatting consistency).",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can run coaching on a selected resume and see a list of suggestions grouped by section/category.",
-        "Suggestions are generated from deterministic rules (e.g., detect missing metrics in experience bullets, overly long summary, missing dates, inconsistent capitalization/punctuation, weak verbs, skill list too short/too long).",
-        "Coaching results are reproducible for the same input and do not call any third-party LLM or API."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Persist coaching runs/results per resume so users can view the latest coaching output after refreshing the app (store at least the latest run timestamp and suggestions).",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores coaching results associated with a resume and user principal.",
-        "Frontend shows the most recent coaching results when revisiting a resume.",
-        "User can re-run coaching to overwrite/append to previous results (choose one approach and keep it consistent)."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add an application shell with navigation for: Resume List, Resume Editor/Preview, and Coaching, using React Query for all canister reads/writes and consistent loading/error states.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Resume List shows all user resumes and allows opening, duplicating, and deleting a resume.",
-        "All data operations use React Query with clear loading indicators and error messages.",
-        "Navigation works without broken routes/pages and preserves selected resume context where appropriate."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Define and apply a cohesive visual theme for the app (colors, typography, spacing, component styling) with a professional editorial look (avoid blue/purple as primary colors) and ensure it is used consistently across all pages.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Theme is consistently applied across list, editor, preview, and coaching views.",
-        "Primary palette is not blue/purple; overall look is professional and readable.",
-        "Forms and preview have strong typographic hierarchy and accessible contrast."
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Add generated static image assets (logo + optional hero/empty-state illustration) to the frontend and display them in the app shell/landing/empty states.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Create a  resume builder and coaching ai app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Generated images are placed in frontend/public/assets/generated and referenced directly by the frontend.",
-        "Logo is shown in the app header/shell.",
-        "Illustration is used in an appropriate empty state (e.g., no resumes yet) without impacting core functionality."
+        "When `identity` is not present, the landing screen renders a clearly visible button labeled \"Sign in with Internet Identity\".",
+        "Clicking the button calls the `login()` function from `useInternetIdentity` and opens the Internet Identity authentication flow.",
+        "While `loginStatus` is \"logging-in\", the sign-in button is disabled and shows a loading state (e.g., text changes to \"Signing in…\" or a spinner is shown).",
+        "If `loginStatus` is \"loginError\", an error message is shown on the landing screen using existing UI patterns (e.g., `ErrorState`) and the user can retry by clicking the sign-in button again."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor with all logic in backend/main.mo (add backend/migration.mo only if needed for state upgrades).",
-    "Do not edit files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
-    "Do not use external AI/LLM services or third-party auth providers; only local deterministic coaching logic is allowed."
+    "Do not modify files under `frontend/src/hooks/useInternetIdentity.ts` / `frontend/src/hooks/useActor.ts` or any other paths listed as immutable in SYSTEM_CONTEXT.",
+    "Keep authentication implementation limited to wiring the existing `useInternetIdentity().login()` into the UI; do not introduce new auth providers.",
+    "No backend changes; login is purely a frontend UI fix."
   ],
   "nonGoals": [
-    "Real-time collaboration on resumes.",
-    "Integrations with external job boards/ATS systems.",
-    "Third-party LLM integration or API-based AI coaching.",
-    "Email/SMS/push notifications.",
-    "Multi-canister or microservices backend architecture."
+    "Adding new authentication methods beyond Internet Identity.",
+    "Changing resume/coaching functionality or routing behavior.",
+    "Adding or changing static image assets as part of this fix."
   ],
   "imageRequirements": {
-    "required": [
-      "Minimalist typographic logo mark, black/charcoal on transparent background (resume-coach-logo.dim_512x512.png)",
-      "Simple editorial-style illustration of a desk with paper and checklist, warm neutral palette (empty-state-illustration.dim_1200x800.png)"
-    ],
+    "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

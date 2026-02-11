@@ -1,105 +1,22 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T13:16:40.133Z",
-  "summary": "The diff adds substantial new backend + frontend functionality (resume CRUD scaffolding, routing, editor/preview/coaching UI pieces, React Query hooks, app shell). However, based on the visible diff excerpts, stable-state persistence for resumes/coaching is not evidenced, and several unrequested auth/profile/admin-token features were introduced.",
-  "missing_requirements": [
-    {
-      "id": "REQ-1",
-      "requirement": "Resumes are stored in canister stable state and survive canister upgrades.",
-      "reason": "The backend excerpt shows in-memory Maps (`resumes`, `coachingResults`, `userProfiles`) and `nextId` as a regular `var`, but no `stable var` declarations and no `preupgrade`/`postupgrade` (or migration) logic is shown in the provided diff summary. Without stable variables or upgrade hooks, upgrade persistence is not evidenced.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Persist coaching runs/results per resume so users can view the latest coaching output after refreshing the app (store at least latest run timestamp and suggestions).",
-      "reason": "Although `CoachingResult` and a `coachingResults` Map are defined, the provided backend excerpt does not show stable persistence mechanisms (stable vars or upgrade hooks). Therefore persistence across refresh/upgrade is not evidenced in the diff summary.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "AI-style coaching generates actionable suggestions from deterministic heuristic rules (e.g., missing metrics, overly long summary, missing dates, inconsistent capitalization/punctuation, weak verbs, skills list too short/too long), reproducibly, with no external AI calls.",
-      "reason": "The diff shows coaching-related types and a frontend hook calling `actor.runCoaching`, but the provided backend excerpt is truncated before any coaching heuristic implementation is visible. No concrete deterministic rule checks are evidenced in the diff summary.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useCoaching.ts"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-11T13:32:35.650Z",
+  "summary": "The diff updates `frontend/src/App.tsx` to add an unauthenticated landing screen with a primary “Sign in with Internet Identity” button wired to `useInternetIdentity().login()`, including disabled/loading and error/retry behavior. It also adds additional landing UI (logo/title/tagline) not explicitly requested.",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Internet Identity authentication integration (login/session management)",
-      "reason": "BuildRequest disallows third-party auth providers; the diff introduces Internet Identity via `@dfinity/auth-client` and `useInternetIdentity` for authentication state.",
+      "description": "Added unauthenticated landing/marketing UI elements (logo image, app title, tagline, gradient background) beyond the requested sign-in button/error state wiring.",
+      "reason": "REQ-9 only requests adding a visible primary Internet Identity sign-in button (plus loading/disabled and error/retry behavior). The additional branding/hero UI is not requested and could conflict with the stated non-goal of not changing static image assets as part of this fix (even though no new asset files were added, the UI now references an asset path).",
       "evidence": [
-        "frontend/src/hooks/useInternetIdentity.ts",
-        "frontend/src/App.tsx"
-      ]
-    },
-    {
-      "description": "User profile model and mandatory profile setup modal (capture/display user name)",
-      "reason": "Not requested in any REQ; the diff adds backend `UserProfile` storage and frontend modal flow to require a name after login.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/App.tsx",
-        "frontend/src/components/shell/AppShell.tsx"
-      ]
-    },
-    {
-      "description": "Secret admin token initialization via URL param to initialize access control",
-      "reason": "Not requested; adds `getSecretParameter('caffeineAdminToken')` and calls `actor._initializeAccessControlWithSecret(adminToken)` which is outside the specified resume/coaching scope.",
-      "evidence": [
-        "frontend/src/hooks/useActor.ts"
-      ]
-    },
-    {
-      "description": "Caffeine.ai promotional footer link with UTM parameters",
-      "reason": "Not requested by BuildRequest; adds a branded outbound link in the app shell footer.",
-      "evidence": [
-        "frontend/src/components/shell/AppShell.tsx"
+        "frontend/src/App.tsx (adds <img src=\"/assets/generated/resume-coach-logo.dim_512x512.png\" ...>, header text, tagline, and background classes in the unauthenticated screen)"
       ]
     }
   ],
-  "confidence": 0.66,
+  "confidence": 0.74,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/auth/ProfileSetupModal.tsx",
-    "frontend/src/components/coaching/SuggestionList.tsx",
-    "frontend/src/components/common/ErrorState.tsx",
-    "frontend/src/components/common/FormErrorSummary.tsx",
-    "frontend/src/components/common/LoadingState.tsx",
-    "frontend/src/components/resume/ExportButton.tsx",
-    "frontend/src/components/resume/ResumeListItem.tsx",
-    "frontend/src/components/resume/ResumePreview.tsx",
-    "frontend/src/components/resume/SectionBasicsContact.tsx",
-    "frontend/src/components/resume/SectionEducation.tsx",
-    "frontend/src/components/resume/SectionExperience.tsx",
-    "frontend/src/components/resume/SectionSkills.tsx",
-    "frontend/src/components/resume/SectionSummary.tsx",
-    "frontend/src/components/resume/serializeResumeSections.ts",
-    "frontend/src/components/shell/AppShell.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useCoaching.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useResumes.ts",
-    "frontend/src/hooks/useUserProfile.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/CoachingPage.tsx",
-    "frontend/src/pages/ResumeEditorPage.tsx",
-    "frontend/src/pages/ResumeListPage.tsx",
-    "frontend/src/pages/ResumePreviewPage.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

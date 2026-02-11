@@ -8,6 +8,8 @@ import ResumeEditorPage from './pages/ResumeEditorPage';
 import ResumePreviewPage from './pages/ResumePreviewPage';
 import CoachingPage from './pages/CoachingPage';
 import LoadingState from './components/common/LoadingState';
+import ErrorState from './components/common/ErrorState';
+import { Button } from '@/components/ui/button';
 
 function Layout() {
   return (
@@ -56,7 +58,7 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
-  const { identity, isInitializing } = useInternetIdentity();
+  const { identity, isInitializing, login, isLoggingIn, isLoginError } = useInternetIdentity();
   const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
 
   const isAuthenticated = !!identity;
@@ -85,8 +87,22 @@ function App() {
               Build professional resumes with AI-powered coaching
             </p>
           </div>
-          <div className="pt-8">
-            <p className="mb-4 text-sm text-muted-foreground">Sign in to get started</p>
+          <div className="pt-8 space-y-6">
+            <p className="text-sm text-muted-foreground">Sign in to get started</p>
+            <Button
+              onClick={login}
+              disabled={isLoggingIn}
+              size="lg"
+              className="w-full max-w-xs"
+            >
+              {isLoggingIn ? 'Signing in...' : 'Sign in with Internet Identity'}
+            </Button>
+            {isLoginError && (
+              <ErrorState
+                message="Failed to sign in. Please try again."
+                onRetry={login}
+              />
+            )}
           </div>
         </div>
       </div>

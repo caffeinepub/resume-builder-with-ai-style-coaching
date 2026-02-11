@@ -1,16 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Build a resume builder that lets users create and manage their own resumes, preview/export them, and receive deterministic “AI-style” coaching suggestions that persist per resume.
+**Goal:** Add a clearly visible Internet Identity sign-in button to the unauthenticated landing screen so users can start the login flow.
 
 **Planned changes:**
-- Implement backend data models and stable persistence for resumes with per-Principal CRUD access control.
-- Build a resume editor UI with structured sections (Basics/Contact, Summary, Work Experience, Education, Skills), including add/edit and reorder for repeating entries.
-- Add a live, print-friendly resume preview with an Export action that opens the browser print dialog (PDF via print).
-- Implement deterministic coaching heuristics that generate reproducible, actionable suggestions grouped by section/category (no external AI/LLM calls).
-- Persist latest coaching run results per resume (timestamp + suggestions) and show them when revisiting; allow re-running coaching with a consistent overwrite/append approach.
-- Create an app shell with navigation (Resume List, Editor/Preview, Coaching) using React Query for all reads/writes with consistent loading/error states; support duplicate/delete/open from the list.
-- Define and apply a cohesive professional editorial theme (avoid blue/purple as primary colors) across all pages.
-- Add and display generated static assets (logo + empty-state illustration) from `frontend/public/assets/generated`.
+- Update the unauthenticated landing UI in `frontend/src/App.tsx` to render a primary button labeled "Sign in with Internet Identity" when `identity` is not present.
+- Wire the button click to call `useInternetIdentity().login()`.
+- Add a disabled/loading state for the button when `loginStatus` is `"logging-in"` (e.g., label changes to "Signing in…").
+- Show an error message on the landing screen when `loginStatus` is `"loginError"` using existing UI patterns (e.g., `ErrorState`) while still allowing retry.
 
-**User-visible outcome:** Users can create, edit, reorder, and save multiple resumes; see a live preview and export to PDF via print; run coaching to get sectioned suggestions that are saved and re-shown later; and navigate the app with a consistent themed UI and branded header/empty state.
+**User-visible outcome:** When signed out, users see a "Sign in with Internet Identity" button; clicking it starts Internet Identity authentication, with clear loading and error feedback.

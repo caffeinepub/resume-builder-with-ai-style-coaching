@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, authentication flow, profile setup modal, and route definitions for resume list, editor, preview, and coaching pages.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, authentication flow with Internet Identity sign-in button, profile setup modal, loading and error states, and route definitions for resume list, editor, preview, and coaching pages.",
   "frontend/src/hooks/useUserProfile.ts": "React Query hooks for fetching and saving user profile data with proper loading state handling to prevent modal flash.",
   "frontend/src/hooks/useResumes.ts": "React Query hooks for all resume CRUD operations (list, get, create, update, delete) with cache invalidation.",
   "frontend/src/hooks/useCoaching.ts": "React Query hooks for fetching resume with coaching data and running coaching analysis.",

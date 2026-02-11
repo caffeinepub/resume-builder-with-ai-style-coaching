@@ -1,11 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 5,
   "summary": "Build a resume builder application with an AI coaching component.",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Minimalist typographic logo mark, black/charcoal on transparent background (resume-coach-logo.dim_512x512.png)\n- Simple editorial-style illustration of a desk with paper and checklist, warm neutral palette (empty-state-illustration.dim_1200x800.png)",
+  "known_issues": [
+    "Login/sign-in button for Internet Identity is missing from the UI, preventing users from initiating login."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-resume-editor-ui-that-lets-users-build-a-resume-using-structured-sections-at-minimum-basics-contact-summary-work-experience-education-skills-with-add-edit-reorder-capabilities-for-repeating-items-e-g-multiple-jobs",
@@ -52,6 +53,14 @@
       "title": "Add generated static image assets (logo + optional hero/empty-state illustration) to the frontend and display them in the app shell/landing/empty states.",
       "reqIds": [
         "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-primary-sign-in-with-internet-identity-button-to-the-unauthenticated-landing-screen-in-frontend-src-app-tsx-that-triggers-useinternetidentity-login-on-click-so-users-can-initiate-login",
+      "title": "Add a visible primary \"Sign in with Internet Identity\" button to the unauthenticated landing screen in `frontend/src/App.tsx` that triggers `useInternetIdentity().login()` on click, so users can initiate login.",
+      "reqIds": [
+        "REQ-9"
       ],
       "version": 1
     }
